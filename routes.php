@@ -1,19 +1,28 @@
 <?php
+require_once(__DIR__ . '/controllers/StudentController.php');
+require_once(__DIR__ . '/controllers/DashboardController.php');
 
-// If no `page` param is set, default to 'dashboard'
 $page = $_GET['page'] ?? 'dashboard';
 
 switch ($page) {
     case 'students':
-        require_once __DIR__ . '/controllers/StudentController.php';
         $controller = new StudentController();
         $controller->index();
         break;
 
     case 'dashboard':
-        include __DIR__ . '/views/partials/header.php';
-        echo "<h1>Welcome to Dashboard</h1>";
-        include __DIR__ . '/views/partials/footer.php';
+        $controller = new DashboardController();
+        $controller->index();
+        break;
+
+    case 'students_create':
+        $controller = new StudentController();
+        $controller->create();
+        break;
+
+    case 'students_store':
+        $controller = new StudentController();
+        $controller->store();
         break;
 
     default:
