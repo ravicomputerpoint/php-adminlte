@@ -3,7 +3,8 @@ Welcome to this project! Follow these quick steps to get started.
 
 ## 🔧 Installation
 ### Go to your C:\xampp\htdocs or where htdocs folder of xampp
-### Right click and open gith bash and try below instruction
+### Right click and open github bash and try below instruction
+
 
 ## 📏 Instruction
 ### git clone https://github.com/ravicomputerpoint/php-adminlte
