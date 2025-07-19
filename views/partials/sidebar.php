@@ -1,3 +1,7 @@
+ <?php
+  $sidebar = require_once 'config/adminlte.php';
+  $items = $sidebar['sidebar'];
+?>
  <!--begin::Sidebar-->
       <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
         <!--begin::Sidebar Brand-->
@@ -22,43 +26,39 @@
         <div class="sidebar-wrapper">
           <nav class="mt-2">
             <!--begin::Sidebar Menu-->
-            <ul
-              class="nav sidebar-menu flex-column"
-              data-lte-toggle="treeview"
-              role="menu"
-              data-accordion="false"
-            >
-              <li class="nav-item">
-                <a href="index.php?page=dashboard" class="nav-link active">
-                  <i class="nav-icon bi bi-palette"></i>
-                  <p>Dashboard</p>
-                </a>
-              </li>
-              <li class="nav-header">Simple Heading</li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon bi bi-speedometer"></i>
-                  <p>
-                    Students
-                    <i class="nav-arrow bi bi-chevron-right"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="?page=students" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>Manage Students</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="?page=students_create" class="nav-link">
-                      <i class="nav-icon bi bi-circle"></i>
-                      <p>New Student</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              
+            <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
+                <?php foreach ($items as $item): ?>
+                    <?php if ($item['type'] === 'link'): ?>
+                        <li class="nav-item">
+                            <a href="<?= $item['url'] ?>" class="nav-link <?= $item['active'] ? 'active' : '' ?>">
+                                <i class="nav-icon <?= $item['icon'] ?>"></i>
+                                <p><?= $item['text'] ?></p>
+                            </a>
+                        </li>
+                    <?php elseif ($item['type'] === 'header'): ?>
+                        <li class="nav-header"><?= $item['text'] ?></li>
+                    <?php elseif ($item['type'] === 'treeview'): ?>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon <?= $item['icon'] ?>"></i>
+                                <p>
+                                    <?= $item['text'] ?>
+                                    <i class="nav-arrow bi bi-chevron-right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <?php foreach ($item['submenu'] as $sub): ?>
+                                    <li class="nav-item">
+                                        <a href="<?= $sub['url'] ?>" class="nav-link">
+                                            <i class="nav-icon <?= $sub['icon'] ?>"></i>
+                                            <p><?= $sub['text'] ?></p>
+                                        </a>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </li>
+                    <?php endif; ?>
+                <?php endforeach; ?>
             </ul>
             <!--end::Sidebar Menu-->
           </nav>
